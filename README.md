@@ -1,2 +1,2 @@
 # Smashbot
-A Discoed bot relating to super smash bros
+A Discord bot relating to super smash bros
