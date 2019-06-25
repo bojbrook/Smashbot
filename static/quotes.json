@@ -1,10 +1,10 @@
 [
   {
     "text": "EAT THIS MEGASMAAASH!!!!",
-    "img": "./static/img/smash.png"
+    "img": "./static/img/mega_smash.png"
   },
   {
-    "text": "If only I could have predicted the flair blitz'",
+    "text": "If only I could have predicted the flair blitz",
     "img": "./static/img/flair_blitz.jpg"
   },
   {
@@ -26,5 +26,21 @@
   {
     "text": "What is a knight to  king",
     "img": "./static/img/big_arms_ddd.jpg"   
+  },
+  {
+    "text": "I'm just a boy with his snake",
+    "img": "./static/img/lucas_w_his_snake.jpg"   
+  },
+  {
+    "text": "Whats he doing??? \n his best",
+    "img": "./static/img/bulbasaur.jpg"   
+  },
+  {
+    "text": "Nobody is safe",
+    "img": "./static/img/wii_fit.jpg"   
+  },
+  {
+    "text": "Mercy",
+    "img": "./static/img/mercy.jpg"   
   }
 ]

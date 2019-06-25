@@ -5,5 +5,6 @@ module.exports = [
     'Phew, close one',
     'Dunktastic',
     'If only I could have predicted the flair blitz',
-    'What is a king to a little boy'
+    'What is a king to a little boy',
+    'Waaaaaaaaaaaaaaaaah'
 ];
