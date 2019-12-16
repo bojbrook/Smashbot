@@ -1,4 +1,4 @@
-require('dotenv').config();
+// require('dotenv').config();
 
 const smash = require('./static/quotes.json');
 const catan = require('./static/catan.json');
