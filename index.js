@@ -10,8 +10,11 @@ const { createLogger, format, transports } = require('winston');
 const SMASH_KEYWORD = "smash";
 const CATAN_KEYWORD = "catan";
 const LIST_SMASH_KEYWORD = "\list";
+
+ 
 //Code for logging in production
 if (process.env.ENV == "PROD"){
+  const PROD = true;
   console.log("Running in production");
   const logger = createLogger({
     level: 'info',
@@ -23,6 +26,7 @@ if (process.env.ENV == "PROD"){
   });
 }else{
   console.log("Running in Development");
+  const PROD = false;
 }
 
 
@@ -43,8 +47,9 @@ client.on('message', msg => {
   if(content_lower_case == "f"){
     console.log('Big f in chat');
     msg.channel.send(smash[12]['text'],  {files: [smash[12]['img']]});
-    // var index = Math.floor(Math.random() * smash.length);
-    // msg.channel.send(smash[index]['text'], {files: [smash[index]['img']]});
+    if (PROD)
+    	  logger.info("An F in chat occured",{author: `${msg.author.tag}`, file: `${[smash[12]['img']]}`, quote: `${[smash[12]['text']]}` });
+    
   }
 
   //smash command
@@ -52,7 +57,7 @@ client.on('message', msg => {
     	var index = Math.floor(Math.random() * smash.length);
       msg.channel.send(smash[index]['text'], {files: [smash[index]['img']]});
       //Datadog loging 
-      if (process.env.ENV == "PROD")
+      if (PROD)
     	  logger.info(smash[index]['text'],{author: `${msg.author.tag}`, file: `${[smash[index]['img']]}` });
   }
   if (content_lower_case.includes(LIST_SMASH_KEYWORD)){
