@@ -1,54 +1,67 @@
 [
   {
     "text": "EAT THIS MEGASMAAASH!!!!",
-    "img": "https://smash69.s3.amazonaws.com/img/mega_smash.png"
+    "img": "https://smash69.s3.amazonaws.com/img/mega_smash.png",
+    "command": "\mega"
   },
   {
     "text": "If only I could have predicted the flare blitz",
-    "img": "https://smash69.s3.amazonaws.com/img/flair_blitz.jpg"
+    "img": "https://smash69.s3.amazonaws.com/img/flair_blitz.jpg",
+    "command": "d"
   },
   {
     "text": "Waaaaaaaaaaaaaaaaah",
-    "img": "https://smash69.s3.amazonaws.com/img/waluigi.jpg"
+    "img": "https://smash69.s3.amazonaws.com/img/waluigi.jpg",
+    "command": "d"
   },
   {
     "text": "Our cause is just",
-    "img": "https://smash69.s3.amazonaws.com/img/falcon.jpg"
+    "img": "https://smash69.s3.amazonaws.com/img/falcon.jpg",
+    "command": "d"
   },
   {
     "text": "What is a king to a little boy",
-    "img": "https://smash69.s3.amazonaws.com/img/ddd.png"
+    "img": "https://smash69.s3.amazonaws.com/img/ddd.png",
+    "command": "d"
   },
   {
     "text": "Gun",
-    "img": "https://smash69.s3.amazonaws.com/img/Gun.jpg"
+    "img": "https://smash69.s3.amazonaws.com/img/Gun.jpg",
+    "command": "d"
   },
   {
     "text": "What is a knight to  king",
-    "img": "https://smash69.s3.amazonaws.com/img/big_arms_ddd.jpg"
+    "img": "https://smash69.s3.amazonaws.com/img/big_arms_ddd.jpg",
+    "command": "d"
   },
   {
     "text": "I'm just a boy with his snake",
-    "img": "https://smash69.s3.amazonaws.com/img/lucas_w_his_snake.jpg"
+    "img": "https://smash69.s3.amazonaws.com/img/lucas_w_his_snake.jpg",
+    "command": "d"
   },
   {
     "text": "Whats he doing??? \n his best",
-    "img": "https://smash69.s3.amazonaws.com/img/bulbasaur.jpg"
+    "img": "https://smash69.s3.amazonaws.com/img/bulbasaur.jpg",
+    "command": "d"
   },
   {
     "text": "Nobody is safe",
-    "img": "https://smash69.s3.amazonaws.com/img/wii_fit.jpg"
+    "img": "https://smash69.s3.amazonaws.com/img/wii_fit.jpg",
+    "command": "d"
   },
   {
     "text": "Mercy",
-    "img": "https://smash69.s3.amazonaws.com/img/mercy.jpg"
+    "img": "https://smash69.s3.amazonaws.com/img/mercy.jpg",
+    "command": "d"
   },
   {
     "text": "Nothing can possibly go wrong!",
-    "img": "https://smash69.s3.amazonaws.com/img/Launch_Star.png"
+    "img": "https://smash69.s3.amazonaws.com/img/Launch_Star.png",
+    "command": "d"
   },
   {
     "text": "Can I have a moment of silence...",
-    "img": "https://smash69.s3.amazonaws.com/img/f_in_chat.jpg"
+    "img": "https://smash69.s3.amazonaws.com/img/f_in_chat.jpg",
+    "command": "d"
   }
 ]
