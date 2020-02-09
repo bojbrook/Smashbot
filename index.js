@@ -13,6 +13,7 @@ const SMASH_KEYWORD = "smash";
 const SMASH_SPECIFIC_KEY = "smash \\"
 const LIST_SMASH_KEYWORD = "\\list";
 
+
 var prod;
  
 //Code for logging in production
@@ -51,8 +52,9 @@ client.on('message', msg => {
     console.log('Big f in chat');
     msg.channel.send(smash[12]['text'],  {files: [smash[12]['img']]});
     //Datadog loging 
-    if (prod)
-    	logger.info("An F in chat occured",{author: `${msg.author.tag}`, file: `${[smash[12]['img']]}`, quote: `${[smash[12]['text']]}` });
+    if (prod){
+      logger.info("An F in chat occured",{author: `${msg.author.tag}`, file: `${[smash[12]['img']]}`, quote: `${[smash[12]['text']]}` });
+    }
     return;
   }
 
@@ -75,6 +77,10 @@ client.on('message', msg => {
      
     }
     return;
+    if (prod){
+      logger.info("An F in chat occured",{author: `${msg.author.tag}`, file: `${[smash[12]['img']]}`, quote: `${[smash[12]['text']]}` });
+	    // console.log("I'm very dissapointed");
+    }
   }
 
   //smash command
@@ -94,8 +100,7 @@ client.on('message', msg => {
     var message = "Smash keys...\n";
     for (var i = 0; i < smash.length; i++){
       var line = `${i+1}: ${smash[i]['key']}\n`;
-      message += line;
-     
+      message += line; 
     }
     msg.channel.send(message);
     return;
