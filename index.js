@@ -10,11 +10,21 @@ const { createLogger, format, transports } = require('winston');
 
 
 const SMASH_KEYWORD = "smash";
-const SMASH_SPECIFIC_KEY = "smash \\"
-const LIST_SMASH_KEYWORD = "\\list";
-
-
+const SMASH_SPECIFIC_KEY = "smash /"
+const LIST_SMASH_KEYWORD = "/list";
 var prod;
+var LOG_FILE;
+
+//Code for logging in production:
+if (process.env.ENV == "PROD"){
+ console.log("Running in Production");
+ prod = true;
+ LOG_FILE = "/var/log/smashbot/bot.log";
+}else{
+ console.log("Running in Development");
+ prod = false;
+ LOG_FILE = "D:\\Programming\\DiscordBots\\Smashbot\\bot.log"
+}
 
 //setting up the loger
 const logger = createLogger({
@@ -22,19 +32,12 @@ const logger = createLogger({
     exitOnError: false,
     format: format.json(),
     transports: [
-      new transports.File({ filename: "/var/log/smashbot/bot.log" }),
+      new transports.File({ filename: LOG_FILE }),
     ],
   });
 module.exports = logger;
  
-//Code for logging in production:
-if (process.env.ENV == "PROD"){
- 	console.log("Running in Production");
-	prod = true;
-}else{
-  console.log("Running in Development");
-  prod = false;
-}
+
 
 
 client.on('ready', () => {
@@ -63,7 +66,7 @@ client.on('message', msg => {
 
   //Checking for keywords in message
   if(content_lower_case.startsWith(SMASH_SPECIFIC_KEY)){
-    index_of_backslash = content_lower_case.indexOf("\\");
+    index_of_backslash = content_lower_case.indexOf("/");
     var keyword = content_lower_case.substr(index_of_backslash);
     console.log(keyword);
 
