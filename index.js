@@ -94,7 +94,7 @@ client.on('message', msg => {
       msg.channel.send(random_reply[index]['text'], {files: [random_reply[index]['img']]});
       //Datadog loging 
       if (prod){
-        logger.info(smrandom_replyash[index]['text'],{author: `${msg.author.tag}`, file: `${[random_reply[index]['img']]}` });
+        logger.info(random_reply[index]['text'],{author: `${msg.author.tag}`, file: `${[random_reply[index]['img']]}` });
       }	      
 	return;
   }
