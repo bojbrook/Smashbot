@@ -9,7 +9,7 @@ const { createLogger, format, transports } = require('winston');
 
 const SMASH_KEYWORD = "smash";
 const CATAN_KEYWORD = "catan";
-const LIST_SMASH_KEYWORD = "\list";
+const LIST_SMASH_KEYWORD = "\\list";
 
  
 //Code for logging in production
