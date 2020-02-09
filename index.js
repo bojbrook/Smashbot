@@ -1,5 +1,7 @@
 const smash = require('./static/quotes.json');
-const catan = require('./static/catan.json');
+
+//const catan = require('./static/catan.json');
+//const CATAN_KEYWORD = "catan";
 
 require('dotenv').config();
 const Discord = require('discord.js');
@@ -8,14 +10,15 @@ const { createLogger, format, transports } = require('winston');
 
 
 const SMASH_KEYWORD = "smash";
-const CATAN_KEYWORD = "catan";
+const SMASH_SPECIFIC_KEY = "smash \\"
 const LIST_SMASH_KEYWORD = "\\list";
 
+var prod;
  
 //Code for logging in production
 if (process.env.ENV == "PROD"){
-  const PROD = true;
   console.log("Running in production");
+  prod = true;
   const logger = createLogger({
     level: 'info',
     exitOnError: false,
@@ -26,7 +29,7 @@ if (process.env.ENV == "PROD"){
   });
 }else{
   console.log("Running in Development");
-  const PROD = false;
+  prod = false;
 }
 
 
@@ -47,9 +50,31 @@ client.on('message', msg => {
   if(content_lower_case == "f"){
     console.log('Big f in chat');
     msg.channel.send(smash[12]['text'],  {files: [smash[12]['img']]});
-    if (PROD)
-    	  logger.info("An F in chat occured",{author: `${msg.author.tag}`, file: `${[smash[12]['img']]}`, quote: `${[smash[12]['text']]}` });
-    
+    //Datadog loging 
+    if (prod)
+    	logger.info("An F in chat occured",{author: `${msg.author.tag}`, file: `${[smash[12]['img']]}`, quote: `${[smash[12]['text']]}` });
+    return;
+  }
+
+  //Checking for keywords in message
+  if(content_lower_case.startsWith(SMASH_SPECIFIC_KEY)){
+    index_of_backslash = content_lower_case.indexOf("\\");
+    var keyword = content_lower_case.substr(index_of_backslash);
+    console.log(keyword);
+
+    //Searching for specific saying
+    for (var i= 0; i < smash.length; i++){
+      if (smash[i]['key'] == keyword){
+        msg.channel.send(smash[i]['text'], {files: [smash[i]['img']]});
+         //Datadog loging 
+        if (prod){
+          logger.info(smash[index]['text'],{author: `${msg.author.tag}`, file: `${[smash[index]['img']]}` });
+        }
+        break;
+      }
+     
+    }
+    return;
   }
 
   //smash command
@@ -57,20 +82,30 @@ client.on('message', msg => {
     	var index = Math.floor(Math.random() * smash.length);
       msg.channel.send(smash[index]['text'], {files: [smash[index]['img']]});
       //Datadog loging 
-      if (PROD)
-    	  logger.info(smash[index]['text'],{author: `${msg.author.tag}`, file: `${[smash[index]['img']]}` });
+      if (prod)
+        logger.info(smash[index]['text'],{author: `${msg.author.tag}`, file: `${[smash[index]['img']]}` });
+      return;
   }
+
+  //list all the keywords
   if (content_lower_case.includes(LIST_SMASH_KEYWORD)){
   	console.log("Listing all the possibilites");
     console.log(`Length: ${smash.length}`);
-    var i;
-    for (i = 0; i < smash.length; i++){
-      msg.channel.send(smash[i]['text'], {files: [smash[i]['img']]})
-	}
+    var message = "Smash keys...\n";
+    for (var i = 0; i < smash.length; i++){
+      var line = `${i+1}: ${smash[i]['key']}\n`;
+      message += line;
+     
+    }
+    msg.channel.send(message);
+    return;
   }
+
+  /*
   else if(content_lower_case.includes(CATAN_KEYWORD)){
     msg.channel.send(catan[0]['text'], {files: [catan[0]['img']]})
   }
+  */
 
 })
 
