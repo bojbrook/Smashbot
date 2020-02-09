@@ -15,12 +15,9 @@ const LIST_SMASH_KEYWORD = "\\list";
 
 
 var prod;
- 
-//Code for logging in production
-if (process.env.ENV == "PROD"){
-  console.log("Running in production");
-  prod = true;
-  const logger = createLogger({
+
+//setting up the loger
+const logger = createLogger({
     level: 'info',
     exitOnError: false,
     format: format.json(),
@@ -28,6 +25,12 @@ if (process.env.ENV == "PROD"){
       new transports.File({ filename: "/var/log/smashbot/bot.log" }),
     ],
   });
+module.exports = logger;
+ 
+//Code for logging in production:
+if (process.env.ENV == "PROD"){
+ 	console.log("Running in Production");
+	prod = true;
 }else{
   console.log("Running in Development");
   prod = false;
@@ -70,27 +73,25 @@ client.on('message', msg => {
         msg.channel.send(smash[i]['text'], {files: [smash[i]['img']]});
          //Datadog loging 
         if (prod){
-          logger.info(smash[index]['text'],{author: `${msg.author.tag}`, file: `${[smash[index]['img']]}` });
+          logger.info(smash[i]['text'],{author: `${msg.author.tag}`, file: `${[smash[i]['img']]}` });
         }
         break;
       }
      
     }
-    return;
-    if (prod){
-      logger.info("An F in chat occured",{author: `${msg.author.tag}`, file: `${[smash[12]['img']]}`, quote: `${[smash[12]['text']]}` });
-	    // console.log("I'm very dissapointed");
+    	return;
     }
-  }
+  
 
   //smash command
   if(content_lower_case.includes(SMASH_KEYWORD)){
     	var index = Math.floor(Math.random() * smash.length);
       msg.channel.send(smash[index]['text'], {files: [smash[index]['img']]});
       //Datadog loging 
-      if (prod)
+      if (prod){
         logger.info(smash[index]['text'],{author: `${msg.author.tag}`, file: `${[smash[index]['img']]}` });
-      return;
+      }	      
+	return;
   }
 
   //list all the keywords
