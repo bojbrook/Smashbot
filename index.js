@@ -1,4 +1,6 @@
 const smash = require('./static/quotes.json');
+const random_reply= smash['reply'];
+const f_reply = smash['f-reply'];
 
 //const catan = require('./static/catan.json');
 //const CATAN_KEYWORD = "catan";
@@ -56,10 +58,10 @@ client.on('message', msg => {
   //For an F in chat
   if(content_lower_case == "f"){
     console.log('Big f in chat');
-    msg.channel.send(smash[12]['text'],  {files: [smash[12]['img']]});
+    msg.channel.send(f_reply[0]['text'],  {files: [f_reply[0]['img']]});
     //Datadog loging 
     if (prod){
-      logger.info("An F in chat occured",{author: `${msg.author.tag}`, file: `${[smash[12]['img']]}`, quote: `${[smash[12]['text']]}` });
+      logger.info("An F in chat occured",{author: `${msg.author.tag}`, file: `${[f_reply[0]['img']]}`, quote: `${[smash[0]['text']]}` });
     }
     return;
   }
@@ -71,12 +73,12 @@ client.on('message', msg => {
     console.log(keyword);
 
     //Searching for specific saying
-    for (var i= 0; i < smash.length; i++){
-      if (smash[i]['key'] == keyword){
-        msg.channel.send(smash[i]['text'], {files: [smash[i]['img']]});
+    for (var i= 0; i < random_reply.length; i++){
+      if (random_reply[i]['key'] == keyword){
+        msg.channel.send(random_reply[i]['text'], {files: [random_reply[i]['img']]});
          //Datadog loging 
         if (prod){
-          logger.info(smash[i]['text'],{author: `${msg.author.tag}`, file: `${[smash[i]['img']]}` });
+          logger.info(random_reply[i]['text'],{author: `${msg.author.tag}`, file: `${[random_reply[i]['img']]}` });
         }
         break;
       }
@@ -88,11 +90,11 @@ client.on('message', msg => {
 
   //smash command
   if(content_lower_case.includes(SMASH_KEYWORD)){
-    	var index = Math.floor(Math.random() * smash.length);
-      msg.channel.send(smash[index]['text'], {files: [smash[index]['img']]});
+    	var index = Math.floor(Math.random() * random_reply.length);
+      msg.channel.send(random_reply[index]['text'], {files: [random_reply[index]['img']]});
       //Datadog loging 
       if (prod){
-        logger.info(smash[index]['text'],{author: `${msg.author.tag}`, file: `${[smash[index]['img']]}` });
+        logger.info(smrandom_replyash[index]['text'],{author: `${msg.author.tag}`, file: `${[random_reply[index]['img']]}` });
       }	      
 	return;
   }
@@ -100,10 +102,11 @@ client.on('message', msg => {
   //list all the keywords
   if (content_lower_case.includes(LIST_SMASH_KEYWORD)){
   	console.log("Listing all the possibilites");
-    console.log(`Length: ${smash.length}`);
+    console.log(`Length: ${random_reply}`);
     var message = "Smash keys...\n";
-    for (var i = 0; i < smash.length; i++){
-      var line = `${i+1}: ${smash[i]['key']}\n`;
+
+    for (var i = 0; i < random_reply.length; i++){
+      var line = `${i+1}: ${random_reply[i]['key']}\n`;
       message += line; 
     }
     msg.channel.send(message);
