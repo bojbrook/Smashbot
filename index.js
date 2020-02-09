@@ -61,7 +61,9 @@ client.on('message', msg => {
     msg.channel.send(f_reply[0]['text'],  {files: [f_reply[0]['img']]});
     //Datadog loging 
     if (prod){
-      logger.info("An F in chat occured",{author: `${msg.author.tag}`, file: `${[f_reply[0]['img']]}`, quote: `${[smash[0]['text']]}` });
+      logger.info("An F in chat occured",{author: `${msg.author.tag}`, file: `${[f_reply[0]['img']]}`, quote: `${[f_reply[0]['text']]}` });
+    }else{
+      logger.info("An F in chat occured",{author: `${msg.author.tag}`, file: `${[f_reply[0]['img']]}`, quote: `${[f_reply[0]['text']]}` });
     }
     return;
   }
@@ -79,6 +81,8 @@ client.on('message', msg => {
          //Datadog loging 
         if (prod){
           logger.info(random_reply[i]['text'],{author: `${msg.author.tag}`, file: `${[random_reply[i]['img']]}` });
+        }else{
+          logger.info(random_reply[i]['text'],{author: `${msg.author.tag}`, file: `${[random_reply[i]['img']]}` });
         }
         break;
       }
@@ -95,7 +99,9 @@ client.on('message', msg => {
       //Datadog loging 
       if (prod){
         logger.info(random_reply[index]['text'],{author: `${msg.author.tag}`, file: `${[random_reply[index]['img']]}` });
-      }	      
+      }else{
+        logger.info(random_reply[index]['text'],{author: `${msg.author.tag}`, file: `${[random_reply[index]['img']]}` });
+      }      
 	return;
   }
 
