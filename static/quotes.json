@@ -60,6 +60,11 @@
         "text": "Nothing can possibly go wrong!",
         "img": "https://smash69.s3.amazonaws.com/img/Launch_Star.png",
         "key": "/launch_star"
+      },
+      {
+        "text": "You wanna be fisted ¯\\\\_(ツ)\\_/¯",
+        "img": "https://smash69.s3.amazonaws.com/img/fisted.jpg",
+        "key": "/fisted"
       }
     ],
   "f-reply":

@@ -12,6 +12,7 @@ const { createLogger, format, transports } = require('winston');
 
 
 const SMASH_KEYWORD = "smash";
+const WANNA_SMASH_KEYWORD = "wanna smash";
 const SMASH_SPECIFIC_KEY = "smash /"
 const LIST_SMASH_KEYWORD = "/list";
 var prod;
@@ -56,7 +57,43 @@ client.on('message', msg => {
   var content_lower_case = msg.content.toLowerCase();
 
   console.log(`Author:  ${msg.author.tag} bot: ${client.user.tag}`);
+  var mention_everyone = msg.mentions.everyone;
+  //for later use
+  var channel_users = msg.channel.members.array();
+  var users = [];
+  for (var index = 0; index < channel_users.length; index++){
+    //Not adding bots to users
+    if(channel_users[index].user.bot)
+      continue;
+    var id = channel_users[index].user.id;
+    var username = channel_users[index].user.username;
+    var item = {id: id, username: username}
+    //console.log(channel_users[index].user.username)
+    users.push(item)
+  }
 
+  //wanna SMASH command
+  if(content_lower_case === WANNA_SMASH_KEYWORD){
+
+    //getting the picture
+    for (var i= 0; i < random_reply.length; i++){
+      if (random_reply[i]['key'] == '/fisted'){
+       var message = random_reply[i];
+       break;
+      }
+    }
+    //searching through users and sending the message
+    for(var index = 0; index < users.length; index++){
+      if (msg.author.id == users[index].id){
+        console.log('skipping author');
+        continue;
+      }
+      console.log(`Sending message to - ${users[index].username}`);
+      msg.channel.send(`${msg.author.username} is challenging you!!\n ${message['text']}` ,{reply: `${users[index].id}`, file: `${message['img']}`} );  
+      }
+    return;
+  }
+  
   //For an F in chat
   if(content_lower_case == "f"){
     console.log('Big f in chat');
@@ -97,21 +134,24 @@ client.on('message', msg => {
 
   //smash command
   if(content_lower_case.includes(SMASH_KEYWORD)){
-    	var index = Math.floor(Math.random() * random_reply.length);
-      msg.channel.send(random_reply[index]['text'], {files: [random_reply[index]['img']]});
-      //Datadog loging 
-      if (prod){
-        logger.info(random_reply[index]['text'],{author: `${msg.author.tag}`, file: `${[random_reply[index]['img']]}` });
-      }else{
-        logger.info(random_reply[index]['text'],{author: `${msg.author.tag}`, file: `${[random_reply[index]['img']]}` });
-      }      
-	return;
+    if (mention_everyone){
+      console.log("Everyone was mentioned!!")
+    }
+    //Getting a random message
+    var index = Math.floor(Math.random() * random_reply.length);
+    msg.channel.send(random_reply[index]['text'], {files: [random_reply[index]['img']]});
+    //Datadog loging 
+    if (prod){
+      logger.info(random_reply[index]['text'],{author: `${msg.author.tag}`, file: `${[random_reply[index]['img']]}` });
+    }else{
+      logger.info(random_reply[index]['text'],{author: `${msg.author.tag}`, file: `${[random_reply[index]['img']]}` });
+    }      
+	  return;
   }
 
   //list all the keywords
   if (content_lower_case.includes(LIST_SMASH_KEYWORD)){
-  	console.log("Listing all the possibilites");
-    console.log(`Length: ${random_reply}`);
+  	console.log("Listing all the keys");
     var message = "Smash keys...\n";
 
     for (var i = 0; i < random_reply.length; i++){
