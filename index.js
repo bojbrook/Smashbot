@@ -38,8 +38,10 @@ const logger = createLogger({
     ],
   });
 module.exports = logger;
- 
 
+//code for Datadog dogstatsd
+var StatsD = require('hot-shots'),
+c = new StatsD();
 
 
 client.on('ready', () => {
@@ -64,6 +66,7 @@ client.on('message', msg => {
       logger.info("An F in chat occured",{author: `${msg.author.tag}`, file: `${[f_reply[0]['img']]}`, quote: `${[f_reply[0]['text']]}` });
     }else{
       logger.info("An F in chat occured",{author: `${msg.author.tag}`, file: `${[f_reply[0]['img']]}`, quote: `${[f_reply[0]['text']]}` });
+      c.increment('smashbot.chat.f.count')
     }
     return;
   }
