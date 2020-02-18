@@ -15,6 +15,8 @@ const SMASH_KEYWORD = "smash";
 const WANNA_SMASH_KEYWORD = "wanna smash";
 const SMASH_SPECIFIC_KEY = "smash /"
 const LIST_SMASH_KEYWORD = "/list";
+const ITS_TIME_KEYWORD = "its time";
+const ITS_TIME1_KEYWORD = "its time!";
 var prod;
 var LOG_FILE;
 
@@ -40,7 +42,7 @@ const logger = createLogger({
   });
 module.exports = logger;
 
-//code for Datadog dogstatsd
+//code for Datadog dogstatsd  
 var StatsD = require('hot-shots'),
 c = new StatsD();
 
@@ -73,7 +75,7 @@ client.on('message', msg => {
   }
 
   //wanna SMASH command
-  if(content_lower_case === WANNA_SMASH_KEYWORD){
+  if(content_lower_case === WANNA_SMASH_KEYWORD || content_lower_case === ITS_TIME_KEYWORD || content_lower_case === ITS_TIME1_KEYWORD){
 
     //getting the picture
     for (var i= 0; i < random_reply.length; i++){
