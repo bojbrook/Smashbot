@@ -13,7 +13,7 @@ const { createLogger, format, transports } = require('winston');
 
 const SMASH_KEYWORD = "smash";
 const WANNA_SMASH_KEYWORD = "wanna smash";
-const SMASH_SPECIFIC_KEY = "smash /"
+const SMASH_SPECIFIC_KEY = "/"
 const LIST_SMASH_KEYWORD = "/list";
 const ITS_TIME_KEYWORD = "its time";
 const ITS_TIME1_KEYWORD = "its time!";
@@ -60,23 +60,16 @@ client.on('message', msg => {
 
   console.log(`Author:  ${msg.author.tag} bot: ${client.user.tag}`);
   var mention_everyone = msg.mentions.everyone;
-  //for later use
-  var channel_users = msg.channel.members.array();
-  var users = [];
-  for (var index = 0; index < channel_users.length; index++){
-    //Not adding bots to users
-    if(channel_users[index].user.bot)
-      continue;
-    var id = channel_users[index].user.id;
-    var username = channel_users[index].user.username;
-    var item = {id: id, username: username}
-    //console.log(channel_users[index].user.username)
-    users.push(item)
-  }
+  
+
+  
 
   //wanna SMASH command
   if(content_lower_case === WANNA_SMASH_KEYWORD || content_lower_case === ITS_TIME_KEYWORD || content_lower_case === ITS_TIME1_KEYWORD){
 
+    //Getting all the users in the channel
+    var users = get_channel_users(msg.channel);
+    
     //getting the picture
     for (var i= 0; i < random_reply.length; i++){
       if (random_reply[i]['key'] == '/fisted'){
@@ -173,3 +166,21 @@ client.on('message', msg => {
 })
 
 client.login(process.env.BOT_TOKEN)
+
+
+//fucntion for getting all the users in a particular channel that aren't bots or the authpr of the message
+function get_channel_users(channel){
+  var channel_users = channel.members.array();
+  var users = [];
+  for (var index = 0; index < channel_users.length; index++){
+    //Not adding bots to users
+    if(channel_users[index].user.bot)
+      continue;
+    var id = channel_users[index].user.id;
+    var username = channel_users[index].user.username;
+    var item = {id: id, username: username}
+    // console.log(channel_users[index].user.username)
+    users.push(item);
+  }
+  return users;
+}
