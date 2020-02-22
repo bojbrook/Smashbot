@@ -69,14 +69,6 @@ client.on('message', msg => {
 
     //Getting all the users in the channel
     var users = get_channel_users(msg.channel);
-    
-    //getting the picture
-    for (var i= 0; i < random_reply.length; i++){
-      if (random_reply[i]['key'] == '/fisted'){
-       var message = random_reply[i];
-       break;
-      }
-    }
     //searching through users and sending the message
     for(var index = 0; index < users.length; index++){
       if (msg.author.id == users[index].id){
@@ -84,6 +76,8 @@ client.on('message', msg => {
         continue;
       }
       console.log(`Sending message to - ${users[index].username}`);
+      //Getting a random message
+      var message = get_random_smash_message();
       msg.channel.send(`${msg.author.username} is challenging you!!\n ${message['text']}` ,{reply: `${users[index].id}`, file: `${message['img']}`} );  
       }
     return;
@@ -133,13 +127,13 @@ client.on('message', msg => {
       console.log("Everyone was mentioned!!")
     }
     //Getting a random message
-    var index = Math.floor(Math.random() * random_reply.length);
-    msg.channel.send(random_reply[index]['text'], {files: [random_reply[index]['img']]});
+    var message = get_random_smash_message();
+    msg.channel.send(message.text, {files: [message.img]});
     //Datadog loging 
     if (prod){
-      logger.info(random_reply[index]['text'],{author: `${msg.author.tag}`, file: `${[random_reply[index]['img']]}` });
+      logger.info(message.text,{author: `${msg.author.tag}`, file: `${[message.img]}` });
     }else{
-      logger.info(random_reply[index]['text'],{author: `${msg.author.tag}`, file: `${[random_reply[index]['img']]}` });
+      logger.info(message.text,{author: `${msg.author.tag}`, file: `${[message.img]}` });
     }      
 	  return;
   }
@@ -183,4 +177,14 @@ function get_channel_users(channel){
     users.push(item);
   }
   return users;
+}
+
+function get_random_smash_message(){
+   //Getting a random message
+   var index = Math.floor(Math.random() * random_reply.length);
+   var message = {
+     "text":  random_reply[index]['text'],
+     "img":   random_reply[index]['img']  
+   }
+   return message;
 }
