@@ -6,8 +6,8 @@ const f_reply = smash['f-reply'];
 //const CATAN_KEYWORD = "catan";
 
 require('dotenv').config();
-const Discord = require('discord.js');
-const client = new Discord.Client();
+const { Client, RichEmbed }= require('discord.js');
+const client = new Client();
 const { createLogger, format, transports } = require('winston');
 
 
@@ -60,6 +60,21 @@ client.on('message', msg => {
 
   console.log(`Author:  ${msg.author.tag} bot: ${client.user.tag}`);
   var mention_everyone = msg.mentions.everyone;
+
+  if (content_lower_case === 'how to embed') {
+    // We can create embeds using the MessageEmbed constructor
+    // Read more about all that you can do with the constructor
+    // over at https://discord.js.org/#/docs/main/stable/class/RichEmbed
+    const embed = new RichEmbed()
+      // Set the title of the field
+      .setTitle('A slick little embed')
+      // Set the color of the embed
+      .setColor(0xFF0000)
+      // Set the main content of the embed
+      .setDescription('Hello, this is a slick embed!');
+    // Send the embed to the same channel as the message
+    msg.channel.send(embed);
+  }
   
 
   
@@ -99,6 +114,21 @@ client.on('message', msg => {
 
   //Checking for keywords in message
   if(content_lower_case.startsWith(SMASH_SPECIFIC_KEY)){
+
+    //listing all of the keywords
+    if (content_lower_case === LIST_SMASH_KEYWORD){
+      console.log("Listing all the keys");
+      var message = "Smash keys...\n";
+  
+      for (var i = 0; i < random_reply.length; i++){
+        var line = `${i+1}: ${random_reply[i]['key']}\n`;
+        message += line; 
+      }
+      msg.channel.send(message);
+      return;
+    }
+
+
     index_of_backslash = content_lower_case.indexOf("/");
     var keyword = content_lower_case.substr(index_of_backslash);
     console.log(keyword);
@@ -128,7 +158,15 @@ client.on('message', msg => {
     }
     //Getting a random message
     var message = get_random_smash_message();
-    msg.channel.send(message.text, {files: [message.img]});
+    const embed = new RichEmbed()
+      // Set the title of the field
+      .setTitle(message['text'])
+      // Set the color of the embed
+      .setColor(0xFF0000)
+      //set the imaage content of the embed
+      .setImage(message['img']);
+      // Send the embed to the same channel as the message
+    msg.channel.send(embed);
     //Datadog loging 
     if (prod){
       logger.info(message.text,{author: `${msg.author.tag}`, file: `${[message.img]}` });
@@ -151,18 +189,12 @@ client.on('message', msg => {
     return;
   }
 
-  /*
-  else if(content_lower_case.includes(CATAN_KEYWORD)){
-    msg.channel.send(catan[0]['text'], {files: [catan[0]['img']]})
-  }
-  */
-
 })
 
 client.login(process.env.BOT_TOKEN)
 
 
-//fucntion for getting all the users in a particular channel that aren't bots or the authpr of the message
+//Returns  all the users in a particular channel that aren't bots 
 function get_channel_users(channel){
   var channel_users = channel.members.array();
   var users = [];
@@ -179,6 +211,7 @@ function get_channel_users(channel){
   return users;
 }
 
+//Returns a random smash message
 function get_random_smash_message(){
    //Getting a random message
    var index = Math.floor(Math.random() * random_reply.length);
