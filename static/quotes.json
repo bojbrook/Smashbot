@@ -75,5 +75,12 @@
         "key": "/f"
       }
 
+    ],
+  "he_ded_reply":
+    [
+      {
+        "img": "https://smash69.s3.amazonaws.com/img/he_ded.gif",
+        "key": "/ded" 
+      }
     ]
 }

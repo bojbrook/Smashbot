@@ -1,6 +1,7 @@
 const smash = require('./static/quotes.json');
 const random_reply= smash['reply'];
 const f_reply = smash['f-reply'];
+const he_ded_reply = smash['he_ded_reply']
 
 //const catan = require('./static/catan.json');
 //const CATAN_KEYWORD = "catan";
@@ -17,6 +18,7 @@ const SMASH_SPECIFIC_KEY = "/"
 const LIST_SMASH_KEYWORD = "/list";
 const ITS_TIME_KEYWORD = "its time";
 const ITS_TIME1_KEYWORD = "its time!";
+const HE_DED_KEYWORD = "he ded";
 var prod;
 var LOG_FILE;
 
@@ -61,24 +63,6 @@ client.on('message', msg => {
   console.log(`Author:  ${msg.author.tag} bot: ${client.user.tag}`);
   var mention_everyone = msg.mentions.everyone;
 
-  if (content_lower_case === 'how to embed') {
-    // We can create embeds using the MessageEmbed constructor
-    // Read more about all that you can do with the constructor
-    // over at https://discord.js.org/#/docs/main/stable/class/RichEmbed
-    const embed = new RichEmbed()
-      // Set the title of the field
-      .setTitle('A slick little embed')
-      // Set the color of the embed
-      .setColor(0xFF0000)
-      // Set the main content of the embed
-      .setDescription('Hello, this is a slick embed!');
-    // Send the embed to the same channel as the message
-    msg.channel.send(embed);
-  }
-  
-
-  
-
   //wanna SMASH command
   if(content_lower_case === WANNA_SMASH_KEYWORD || content_lower_case === ITS_TIME_KEYWORD || content_lower_case === ITS_TIME1_KEYWORD){
 
@@ -95,6 +79,13 @@ client.on('message', msg => {
       var message = get_random_smash_message();
       msg.channel.send(`${msg.author.username} is challenging you!!\n ${message['text']}` ,{reply: `${users[index].id}`, file: `${message['img']}`} );  
       }
+    return;
+  }
+
+   //message for he ded
+  if (content_lower_case.includes(HE_DED_KEYWORD)){
+    msg.channel.send({files:[he_ded_reply[0]['img']]})
+    .catch(console.error);
     return;
   }
   
@@ -176,18 +167,6 @@ client.on('message', msg => {
 	  return;
   }
 
-  //list all the keywords
-  if (content_lower_case.includes(LIST_SMASH_KEYWORD)){
-  	console.log("Listing all the keys");
-    var message = "Smash keys...\n";
-
-    for (var i = 0; i < random_reply.length; i++){
-      var line = `${i+1}: ${random_reply[i]['key']}\n`;
-      message += line; 
-    }
-    msg.channel.send(message);
-    return;
-  }
 
 })
 
