@@ -84,7 +84,8 @@ client.on('message', msg => {
 
    //message for he ded
   if (content_lower_case.includes(HE_DED_KEYWORD)){
-    msg.channel.send({files:[he_ded_reply[0]['img']]})
+    var index = Math.floor(Math.random() * he_ded_reply.length);
+    msg.channel.send({files:[he_ded_reply[index]['img']]})
     .catch(console.error);
     return;
   }

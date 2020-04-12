@@ -80,7 +80,11 @@
     [
       {
         "img": "https://smash69.s3.amazonaws.com/img/he_ded.gif",
-        "key": "/ded" 
+        "key": "/ded1" 
+      },
+      {
+        "img": "https://smash69.s3.amazonaws.com/img/mostly_dead.gif",
+        "key": "/ded2" 
       }
     ]
 }
