@@ -1,3 +1,11 @@
+require('dotenv').config();
+const env = process.env.ENV;
+//Init Datadog
+const tracer = require('dd-trace').init( {
+  env: env,
+  logInjection: "true",
+  }
+);
 const smash = require('./static/quotes.json');
 const random_reply= smash['reply'];
 const f_reply = smash['f-reply'];
@@ -6,7 +14,7 @@ const he_ded_reply = smash['he_ded_reply']
 //const catan = require('./static/catan.json');
 //const CATAN_KEYWORD = "catan";
 
-require('dotenv').config();
+
 const { Client, RichEmbed }= require('discord.js');
 const client = new Client();
 const { createLogger, format, transports } = require('winston');
@@ -23,7 +31,7 @@ var prod;
 var LOG_FILE;
 
 //Code for logging in production:
-if (process.env.ENV == "PROD"){
+if (env == "PROD"){
  console.log("Running in Production");
  prod = true;
  LOG_FILE = "/var/log/smashbot/bot.log";
@@ -44,9 +52,7 @@ const logger = createLogger({
   });
 module.exports = logger;
 
-//code for Datadog dogstatsd  
-var StatsD = require('hot-shots'),
-c = new StatsD();
+
 
 
 client.on('ready', () => {
@@ -99,7 +105,6 @@ client.on('message', msg => {
       logger.info("An F in chat occured",{author: `${msg.author.tag}`, file: `${[f_reply[0]['img']]}`, quote: `${[f_reply[0]['text']]}` });
     }else{
       logger.info("An F in chat occured",{author: `${msg.author.tag}`, file: `${[f_reply[0]['img']]}`, quote: `${[f_reply[0]['text']]}` });
-      c.increment('smashbot.chat.f.count')
     }
     return;
   }
