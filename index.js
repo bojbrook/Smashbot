@@ -27,6 +27,8 @@ app.post('/interactions', async function (req, res) {
     return res.send({ type: InteractionResponseType.PONG });
   }
 
+
+
   if (type === InteractionType.APPLICATION_COMMAND) {
     const { name } = data;
     // "test" guild command

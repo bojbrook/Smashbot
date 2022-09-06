@@ -14,7 +14,7 @@
       {
         "text": "Waaaaaaaaaaaaaaaaah",
         "img": "https://smash69.s3.amazonaws.com/img/waluigi.jpg",
-        "key": "/waligui"
+        "key": "/waluigi"
       },
       {
         "text": "Our cause is just",
@@ -24,7 +24,7 @@
       {
         "text": "What is a king to a little boy",
         "img": "https://smash69.s3.amazonaws.com/img/ddd.png",
-        "key": "/king_to_boy"
+        "key": "/k_to_b"
       },
       {
         "text": "Gun",
@@ -34,7 +34,7 @@
       {
         "text": "What is a knight to  king",
         "img": "https://smash69.s3.amazonaws.com/img/big_arms_ddd.jpg",
-        "key": "/knight_to_king"
+        "key": "/k_to_k"
       },
       {
         "text": "I'm just a boy with his snake",
@@ -75,5 +75,16 @@
         "key": "/f"
       }
 
+    ],
+  "he_ded_reply":
+    [
+      {
+        "img": "https://smash69.s3.amazonaws.com/img/he_ded.gif",
+        "key": "/ded1" 
+      },
+      {
+        "img": "https://smash69.s3.amazonaws.com/img/mostly_dead.gif",
+        "key": "/ded2" 
+      }
     ]
 }
